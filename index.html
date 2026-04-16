@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Мое Кино</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <h1>🍿 КиноКаталог</h1>
+            <button class="icon-btn" onclick="openModal('genre-modal')">⚙️</button>
+        </div>
+        <!-- Поиск -->
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="🔍 Найти фильм..." oninput="handleSearch()">
+        </div>
+    </header>
+
+    <!-- Фильтры по жанрам (генерируются через JS) -->
+    <div class="categories" id="categories-container">
+        <!-- Кнопки жанров появятся здесь -->
+    </div>
+
+    <!-- Сетка с фильмами -->
+    <div id="movie-grid" class="movie-grid">
+        <!-- Карточки фильмов -->
+    </div>
+
+    <!-- Плавающая кнопка добавления (FAB) -->
+    <button class="fab" onclick="openModal('add-movie-modal')">+</button>
+
+    <!-- Затемнение фона для окон -->
+    <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+
+    <!-- ОКНО 1: Добавление фильма -->
+    <div class="modal" id="add-movie-modal">
+        <div class="modal-header">
+            <h2>Добавить фильм</h2>
+            <button class="close-btn" onclick="closeAllModals()">✕</button>
+        </div>
+        <input type="text" id="movie-name" placeholder="Название фильма...">
+        <select id="movie-genre-select">
+            <!-- Жанры подгрузятся сюда -->
+        </select>
+        <button class="primary-btn" onclick="addMovie()">Сохранить</button>
+    </div>
+
+    <!-- ОКНО 2: Управление жанрами -->
+    <div class="modal" id="genre-modal">
+        <div class="modal-header">
+            <h2>Мои жанры</h2>
+            <button class="close-btn" onclick="closeAllModals()">✕</button>
+        </div>
+        <div class="add-genre-box">
+            <input type="text" id="new-genre-name" placeholder="Новый жанр...">
+            <button class="primary-btn" onclick="addGenre()">Добавить</button>
+        </div>
+        <div id="genre-list" class="genre-list">
+            <!-- Список жанров с кнопками удаления -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
