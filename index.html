@@ -12,42 +12,44 @@
 
     <header>
         <div class="header-top">
-            <h1>🍿 КиноКаталог</h1>
+            <h1>🍿 Что смотрим?</h1>
             <button class="icon-btn" onclick="openModal('genre-modal')">⚙️</button>
         </div>
-        <!-- Поиск -->
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="🔍 Найти фильм..." oninput="handleSearch()">
+            <input type="text" id="search-input" placeholder="🔍 Найти в списке..." oninput="handleSearch()">
         </div>
     </header>
 
-    <!-- Фильтры по жанрам (генерируются через JS) -->
-    <div class="categories" id="categories-container">
-        <!-- Кнопки жанров появятся здесь -->
-    </div>
+    <div class="categories" id="categories-container"></div>
 
-    <!-- Сетка с фильмами -->
-    <div id="movie-grid" class="movie-grid">
-        <!-- Карточки фильмов -->
-    </div>
+    <div id="movie-grid" class="movie-grid"></div>
 
-    <!-- Плавающая кнопка добавления (FAB) -->
-    <button class="fab" onclick="openModal('add-movie-modal')">+</button>
+    <!-- Кнопка добавления теперь вызывает специальную функцию -->
+    <button class="fab" onclick="openAddModal()">+</button>
 
-    <!-- Затемнение фона для окон -->
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
-    <!-- ОКНО 1: Добавление фильма -->
+    <!-- ОКНО 1: Окно Добавления / Редактирования -->
     <div class="modal" id="add-movie-modal">
         <div class="modal-header">
-            <h2>Добавить фильм</h2>
+            <h2 id="modal-main-title">Добавить в список</h2>
             <button class="close-btn" onclick="closeAllModals()">✕</button>
         </div>
-        <input type="text" id="movie-name" placeholder="Название фильма...">
-        <select id="movie-genre-select">
-            <!-- Жанры подгрузятся сюда -->
-        </select>
-        <button class="primary-btn" onclick="addMovie()">Сохранить</button>
+        
+        <div class="modal-scroll-area">
+            <select id="item-type">
+                <option value="Фильм">🎬 Фильм</option>
+                <option value="Сериал">📺 Сериал</option>
+            </select>
+
+            <input type="text" id="movie-name" placeholder="Название (на англ. для постера)...">
+            <select id="movie-genre-select"></select>
+            
+            <input type="text" id="movie-link" placeholder="🔗 Ссылка на YouTube (необязательно)">
+            <textarea id="movie-note" placeholder="📝 Заметка (откуда узнал, что зацепило...)" rows="2"></textarea>
+        </div>
+        
+        <button id="save-btn" class="primary-btn" onclick="saveMovie()">Найти постер и сохранить</button>
     </div>
 
     <!-- ОКНО 2: Управление жанрами -->
@@ -60,8 +62,14 @@
             <input type="text" id="new-genre-name" placeholder="Новый жанр...">
             <button class="primary-btn" onclick="addGenre()">Добавить</button>
         </div>
-        <div id="genre-list" class="genre-list">
-            <!-- Список жанров с кнопками удаления -->
+        <div id="genre-list" class="genre-list"></div>
+    </div>
+
+    <!-- ОКНО 3: YouTube Видеоплеер -->
+    <div class="video-modal" id="video-modal">
+        <button class="video-close-btn" onclick="closeVideoModal()">Закрыть ✕</button>
+        <div class="iframe-container">
+            <iframe id="youtube-player" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
